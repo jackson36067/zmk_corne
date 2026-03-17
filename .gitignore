@@ -27,3 +27,5 @@ yarn-error.log
 /.envrc
 !/.envrc.template
 !/.envrc.template.example
+
+.zmk/
