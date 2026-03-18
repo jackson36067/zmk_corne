@@ -37,7 +37,7 @@ layers:
   - .
   - /
   - RIGHT SHIFT
-  - LEFT ALT
+  - LEFT GUI
   - NUMSYMB
   - {t: SPACE, h: LEFT WIN}
   - {t: ENTER, h: SHORTCUTS}
