@@ -17,16 +17,17 @@
 
 / {
     chosen {
-        zephyr,display = &nice_view;  /* 👈 指定使用 nice_view 屏幕 */
+        zephyr,display = &nice_view;
         zmk,kscan = &kscan0;
         zmk,physical-layout = &foostan_corne_6col_layout;
     };
 
-    /* 👇 核心命脉：恢复屏幕供电！没有它屏幕就没电！ */
-    EXT_POWER {
-        compatible = "zmk,ext-power-generic";
-        control-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
-        init-delay-ms = <50>;
+    vcc_disp: vcc_disp_regulator {
+        compatible = "regulator-fixed";
+        regulator-name = "vcc_disp";
+        enable-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+        regulator-always-on;
+        regulator-boot-on;
     };
 
     /* 恢复电量检测 */
@@ -58,7 +59,6 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,13) RC(2,7) RC(2,8) RC(2,9) RC(2,1
         >;
     };
 
-    /* 我们辛苦排查出来的完美打字引脚 */
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
@@ -84,7 +84,6 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,13) RC(2,7) RC(2,8) RC(2,9) RC(2,1
     };
 };
 
-/* 👇 恢复原版硬件特有的定制 SPI 引脚！ */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -103,7 +102,6 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,13) RC(2,7) RC(2,8) RC(2,9) RC(2,1
     };
 };
 
-/* 👇 手动挂载 nice_view 屏幕（不再依赖 adapter） */
 nice_view_spi: &spi0 {
     compatible = "nordic,nrf-spim";
     pinctrl-0 = <&spi0_default>;
@@ -118,5 +116,6 @@ nice_view_spi: &spi0 {
         reg = <0>;
         width = <160>;
         height = <68>;
+        vcc-supply = <&vcc_disp>; 
     };
 };
