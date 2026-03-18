@@ -6,6 +6,7 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <layouts/foostan/corne/5column.dtsi>
 #include <layouts/foostan/corne/6column.dtsi>
+#include <dt-bindings/led/led.h>
 
 &foostan_corne_6col_layout {
     transform = <&default_transform>;
@@ -17,7 +18,7 @@
 
 / {
     chosen {
-        /* ⚠️ 这里的 oled 已经被彻底铲除！nice_view_adapter 会自动接管显示权 */
+        zephyr,display = &oled;
         zmk,kscan = &kscan0;
         zmk,physical-layout = &foostan_corne_6col_layout;
     };
@@ -46,7 +47,7 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,13) RC(2,7) RC(2,8) RC(2,9) RC(2,1
         >;
     };
 
-    /* 完美的 GPIO 打字引脚 */
+    /* 👇 这里是我们昨天测出来唯一能打字的真实原生引脚！不要 pro_micro！ */
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
@@ -72,4 +73,22 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,13) RC(2,7) RC(2,8) RC(2,9) RC(2,1
     };
 };
 
-/* ⚠️ 注意：底部那段 &pro_micro_i2c 已经被彻底删除，把引脚资源全部释放给 SPI！ */
+&pro_micro_i2c {
+    status = "okay";
+
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <32>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <31>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        inversion-on;
+        prechargep = <0x22>;
+    };
+};
