@@ -131,40 +131,40 @@ layers:
   - ''
   SHORTCUTS:
   - Gui+Alt+ESCAPE
-  - PREVIOUS
-  - PP
-  - NEXT
+  - Gui+Q
+  - Gui+W
+  - Gui+E
+  - Gui+R
+  - Sft+Gui+W
   - ''
-  - Sft+Gui+T
   - ''
-  - Gui+Z
-  - Gui+Sft+Z
-  - Gui+Sft+G
   - ''
+  - ''
+  - Gui+Sft+P
   - ''
   - CAPSLOCK
+  - Gui+1
+  - Gui+2
+  - Gui+3
+  - Gui+4
+  - Gui+5
   - ''
-  - Sft+Gui+2
-  - Sft+Gui+3
-  - Sft+Gui+4
-  - Sft+Gui+5
-  - Sft+Alt+H
-  - Gui+{
-  - Gui+}
-  - Sft+Alt+L
+  - PREV
+  - PLAY PAUSE
+  - NEXT
   - ''
   - ''
   - GLOBE
+  - Gui+6
+  - Gui+7
+  - Gui+8
+  - Gui+9
+  - Gui+B
   - ''
-  - ''
-  - Gui+C
-  - Gui+V
-  - Sft+Gui+V
-  - Sft+Alt+B
-  - Alt+=
   - VOLUME UP
   - MUTE
   - VOLUME DOWN
+  - ''
   - ''
   - LEFT SHIFT
   - ''
